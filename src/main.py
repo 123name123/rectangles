@@ -1,5 +1,6 @@
 from copy import deepcopy
 from typing import List, Tuple
+import sys
 
 from rectangle import Rectangle
 from score_count import get_score
@@ -39,12 +40,21 @@ def find_best_location(rectangles: List[Rectangle], max_iter: int = 1000) -> Tup
 
 
 if __name__ == "__main__":
-    try:
-        n = int(input())
-        rectangles = list()
-        for _ in range(n):
-            rectangles.append(Rectangle(*list(map(float, input().split()))))
-        relocated_rectangles, _, _ = find_best_location(rectangles)
-        draw_rectangles(rectangles, relocated_rectangles)
-    except Exception as ex:
-        print(ex)
+    if len(sys.argv) == 2:
+        try:
+            n = int(sys.argv[1])
+            random_rectangles = [generate_rectangle(-20, -20, 20, 20, 10, 10) for _ in range(n)]
+            relocated_rectangles, _, _ = find_best_location(random_rectangles)
+            draw_rectangles(random_rectangles, relocated_rectangles)
+        except Exception as ex:
+            print(ex)
+    else:
+        try:
+            n = int(input())
+            rectangles = list()
+            for _ in range(n):
+                rectangles.append(Rectangle(*list(map(float, input().split()))))
+            relocated_rectangles, _, _ = find_best_location(rectangles)
+            draw_rectangles(rectangles, relocated_rectangles)
+        except Exception as ex:
+            print(ex)
