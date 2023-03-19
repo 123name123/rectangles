@@ -23,6 +23,9 @@
     <li>Запустите приложение:
         <pre><code>python src/main.py</code></pre>
     </li>
+    <li>
+        Введите количество прямоугольников <code>n</code>
+    </li>
     <li>Введите координаты прямоугольников в следующем формате:
         <pre><code>x_min y_min x_max y_max</code></pre>
         <p><code>x_min</code> и <code>y_min</code> - координаты верхнего левого угла прямоугольника<br>

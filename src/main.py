@@ -39,6 +39,12 @@ def find_best_location(rectangles: List[Rectangle], max_iter: int = 1000) -> Tup
 
 
 if __name__ == "__main__":
-    random_rectangles = [generate_rectangle(-10, -10, 10, 10, 5, 5) for _ in range(10)]
-    relocated_rectangles, _, _ = find_best_location(random_rectangles)
-    draw_rectangles(random_rectangles, relocated_rectangles)
+    try:
+        n = int(input())
+        rectangles = list()
+        for _ in range(n):
+            rectangles.append(Rectangle(*list(map(float, input().split()))))
+        relocated_rectangles, _, _ = find_best_location(rectangles)
+        draw_rectangles(rectangles, relocated_rectangles)
+    except Exception as ex:
+        print(ex)
