@@ -1,25 +1,23 @@
 from random import random
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 from rectangle import Rectangle
 
 
 def generate_shifted_rectangles(rectangles: List[Rectangle],
                                 width: float,
-                                height: float) -> Tuple[List[Rectangle], float]:
+                                height: float) -> Optional[List[Rectangle]]:
     """shift each Rectangle in list to a random vector"""
     cur_location = list()
-    min_x, min_y, max_x, max_y = 2 * width, 2 * height, 0, 0
-    for rectangle in rectangles:
+    for i, rectangle in enumerate(rectangles):
         shift_x = max(0, random() * (width - rectangle.width()))
         shift_y = max(0, random() * (height - rectangle.height()))
-        cur_location.append(rectangle.shift(shift_x, shift_y))
-        max_x = max(max_x, cur_location[-1].right)
-        min_x = min(min_x, cur_location[-1].left)
-        max_y = max(max_y, cur_location[-1].top)
-        min_y = min(min_y, cur_location[-1].bottom)
-    cur_compact = (max_x - min_x) * (max_y - min_y)
-    return cur_location, cur_compact
+        probable_rectangle = rectangle.shift(shift_x, shift_y)
+        for new_rectangle in cur_location:
+            if probable_rectangle.intersection(new_rectangle):
+                return None
+        cur_location.append(probable_rectangle)
+    return cur_location
 
 
 def generate_rectangle(min_x: float = -10000, min_y: float = -10000, max_x: float = 10000,
