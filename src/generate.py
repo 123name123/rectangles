@@ -11,8 +11,8 @@ def generate_shifted_rectangles(rectangles: List[Rectangle],
     cur_location = list()
     min_x, min_y, max_x, max_y = 2 * width, 2 * height, 0, 0
     for rectangle in rectangles:
-        shift_x = random() * (width - rectangle.width())
-        shift_y = random() * (height - rectangle.height())
+        shift_x = max(0, random() * (width - rectangle.width()))
+        shift_y = max(0, random() * (height - rectangle.height()))
         cur_location.append(rectangle.shift(shift_x, shift_y))
         max_x = max(max_x, cur_location[-1].right)
         min_x = min(min_x, cur_location[-1].left)
